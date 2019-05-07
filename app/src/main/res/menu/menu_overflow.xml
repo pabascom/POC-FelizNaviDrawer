@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+            android:id="@+id/taco_tuesday"
+            android:icon="@drawable/ic_filter_drama_black_24dp"
+            android:title="@string/taco_tuesday"
+            app:showAsAction="ifRoom" />
+
+    <item
+            android:id="@+id/waffle_wednesday"
+            android:icon="@drawable/ic_tonality_black_24dp"
+            android:title="@string/waffle_wednesday"
+            app:showAsAction="never" />
+
+    <item
+            android:id="@+id/thirsty_thursday"
+            android:icon="@drawable/ic_local_bar_black_24dp"
+            android:title="@string/thirsty_thursday"
+            app:showAsAction="never" />
+
+    <item
+            android:id="@+id/casual_friday"
+            android:icon="@drawable/ic_local_hotel_black_24dp"
+            android:title="@string/casual_friday"
+            app:showAsAction="never" />
+
+</menu>

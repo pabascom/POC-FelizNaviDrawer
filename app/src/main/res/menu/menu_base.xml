@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/contacts"
+          android:icon="@drawable/ic_portrait_black_24dp"
+          android:title="@string/search_contacts"/>
+    <item android:id="@+id/flashlight"
+          android:icon="@drawable/ic_highlight_black_24dp"
+          android:title="@string/use_flashlight"/>
+    <item android:id="@+id/emi"
+          android:icon="@drawable/ic_insert_chart_black_24dp"
+          android:title="@string/calculate_emi"/>
+
+</menu>

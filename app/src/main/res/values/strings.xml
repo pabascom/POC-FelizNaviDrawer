@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">Week1Day5Take3 - Feliz NaviDrawer</string>
+    <string name="app_name">W1D5 - Feliz NaviDrawer</string>
+    <string name="navigation_drawer_open">Drawer Opened</string>
+    <string name="navigation_drawer_close">Drawer Closed</string>
+    <string name="search_contacts">Search Contacts</string>
+    <string name="use_flashlight">Use Flashlight</string>
+    <string name="calculate_emi">Calculate EMI</string>
+    <string name="taco_tuesday">Taco Tuesday</string>
+    <string name="waffle_wednesday">Waffle Wednesday</string>
+    <string name="thirsty_thursday">Thirsty Thursday</string>
+    <string name="casual_friday">Casual Friday</string>
+    <string name="flashlight_instructions">Behold the Light! It doth flash, as an agéd Englishman who has been
+        banned from many parks.
+    </string>
 </resources>
