@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.FloatingActionButton
+import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
 
@@ -15,6 +16,8 @@ class FlashlightActivity : BaseActivity() {
     lateinit var layout: ConstraintLayout
     lateinit var handler: Handler
 
+    var FLASH_IS_ENABLED: Int = 0
+
     //lateinit var flashLightStatus: Boolean
     //lateinit var cameraRequest: Int
 
@@ -23,13 +26,12 @@ class FlashlightActivity : BaseActivity() {
         setContentView(R.layout.activity_flashlight)
 
         val hasCameraFlash = packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)
-        //var isEnabled = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
 
         layout = findViewById(R.id.flashlight_layout)
         handler = Handler()
         fab = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
-            /*if (hasCameraFlash) {
+            if (hasCameraFlash) {
                 if (ContextCompat.checkSelfPermission(
                         applicationContext,
                         Manifest.permission.CAMERA
@@ -40,32 +42,61 @@ class FlashlightActivity : BaseActivity() {
                     requestCameraFlashPermission()
             } else {
                 notifyNoCameraFlashEnabled()
-            }*/
-            notifyNoCameraFlashEnabled()
+            }
         }
     }
 
-    fun requestCameraFlashPermission() {
+    private fun requestCameraFlashPermission() {
+        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), FLASH_IS_ENABLED)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when (requestCode) {
+            FLASH_IS_ENABLED -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    lightsOn()
+                } else {
+                    Toast.makeText(applicationContext, "Y u no let flash go?", Toast.LENGTH_LONG).show()
+                    handler.postDelayed({
+                        Toast.makeText(applicationContext, "Flash traitor.", Toast.LENGTH_SHORT).show()
+                    }, 2500)
+                }
+                return
+            }
+            else -> {
+
+            }
+        }
 
     }
 
-    fun notifyNoCameraFlashEnabled() {
-        Toast.makeText(applicationContext, "Alas! For the lack of the light (features on your phone.", Toast.LENGTH_LONG).show()
+    private fun notifyNoCameraFlashEnabled() {
+        Toast.makeText(
+            applicationContext,
+            "Your phone doesn't support camera flash. Alas for the dying of the light!",
+            Toast.LENGTH_LONG
+        ).show()
         handler.postDelayed({
-            Toast.makeText(applicationContext, "Get a better phone, bro. (or sis)", Toast.LENGTH_SHORT ).show()
+            Toast.makeText(applicationContext, "In other words:", Toast.LENGTH_SHORT).show()
         }, 4500)
         handler.postDelayed({
-            Toast.makeText(applicationContext, "(Or any derogatory pronoun of your choice, gendered or un-)", Toast.LENGTH_SHORT ).show()
-        }, 7500)
+            Toast.makeText(applicationContext, "Get a better phone, bro!", Toast.LENGTH_LONG).show()
+        }, 6500)
         handler.postDelayed({
-            Toast.makeText(applicationContext, "But seriously, who doesn't have flash?", Toast.LENGTH_SHORT ).show()
-        }, 12000)
+            Toast.makeText(applicationContext, "(or sis)", Toast.LENGTH_SHORT).show()
+        }, 9000)
         handler.postDelayed({
-            Toast.makeText(applicationContext, "It's OK, just...", Toast.LENGTH_SHORT ).show()
-        }, 15000)
+            Toast.makeText(applicationContext, "(Or any derogatory pronoun of your choice, gendered or non-)", Toast.LENGTH_LONG).show()
+        }, 11000)
         handler.postDelayed({
-            Toast.makeText(applicationContext, "Do better next time.", Toast.LENGTH_SHORT ).show()
-        }, 17000)
+            Toast.makeText(applicationContext, "But seriously, who doesn't have flash?", Toast.LENGTH_SHORT).show()
+        }, 14500)
+        handler.postDelayed({
+            Toast.makeText(applicationContext, "It's OK, just...", Toast.LENGTH_SHORT).show()
+        }, 16500)
+        handler.postDelayed({
+            Toast.makeText(applicationContext, "Do better next time.", Toast.LENGTH_LONG).show()
+        }, 18500)
     }
 
     fun lightsOn() {
