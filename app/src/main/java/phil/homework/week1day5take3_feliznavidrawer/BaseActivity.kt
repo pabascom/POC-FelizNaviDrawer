@@ -11,6 +11,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.Toast
 
 
 open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -29,13 +30,23 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         drawerLayout.addDrawerListener(toggle)
         toggle.isDrawerIndicatorEnabled = true;
         toggle.syncState()
+
+        val navigationView = findViewById<NavigationView>(R.id.navigationView)
+        navigationView.setNavigationItemSelectedListener { item: MenuItem -> this.onNavigationItemSelected(item) }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.container -> {
-                startActivity(Intent())
+            R.id.contacts -> {
+                startActivity(Intent(applicationContext, SearchContactsActivity::class.java))
             }
+            R.id.flashlight -> {
+                startActivity(Intent(applicationContext, FlashlightActivity::class.java))
+            }
+            R.id.emi -> {
+                startActivity(Intent(applicationContext, EmiCalculatorActivity::class.java))
+            }
+            else -> { }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
