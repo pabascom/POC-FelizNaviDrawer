@@ -1,7 +1,10 @@
 package phil.homework.week1day5take3_feliznavidrawer
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Camera
+import android.hardware.camera2.CameraManager
 import android.os.Bundle
 import android.os.Handler
 import android.support.constraint.ConstraintLayout
@@ -16,16 +19,18 @@ class FlashlightActivity : BaseActivity() {
     lateinit var layout: ConstraintLayout
     lateinit var handler: Handler
 
-    var FLASH_IS_ENABLED: Int = 0
+    lateinit var cameraManager: CameraManager
+    lateinit var cameraId: String
 
-    //lateinit var flashLightStatus: Boolean
-    //lateinit var cameraRequest: Int
+    private val FLASH_IS_ENABLED = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_flashlight)
 
         val hasCameraFlash = packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)
+        cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
+        cameraId = cameraManager.cameraIdList[0]
 
         layout = findViewById(R.id.flashlight_layout)
         handler = Handler()
@@ -103,6 +108,7 @@ class FlashlightActivity : BaseActivity() {
         Toast.makeText(applicationContext, "Lo!", Toast.LENGTH_SHORT).show()
         layout.setBackgroundColor(resources.getColor(R.color.colorAccent))
         fab.setBackgroundColor(resources.getColor(R.color.background_material_light))
+        cameraManager.setTorchMode(cameraId, true)
         handler.postDelayed({
             lightsOff()
         }, 2000)
@@ -111,5 +117,6 @@ class FlashlightActivity : BaseActivity() {
     fun lightsOff() {
         fab.setBackgroundColor(resources.getColor(R.color.colorAccent))
         layout.setBackgroundColor(resources.getColor(R.color.background_material_light))
+        cameraManager.setTorchMode(cameraId, false)
     }
 }
